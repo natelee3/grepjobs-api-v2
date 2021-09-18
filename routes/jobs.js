@@ -17,4 +17,16 @@ router.get('/:user_id?', async (req, res) => {
     } 
 });
 
-module.exports = router
+router.post('/add', async (req, res) => {
+    const client = get();
+    const jobs = client.db('grepJobs').collection('jobs');
+    const newJob = await jobs.insertOne(req.query, err => {
+        if (err) {
+            console.error('ERROR', err)
+        } else {
+            console.log('insert successful')
+        }
+    });
+})
+
+module.exports = router;

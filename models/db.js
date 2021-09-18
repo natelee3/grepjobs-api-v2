@@ -1,12 +1,12 @@
 'use strict';
 
 const { MongoClient } = require('mongodb');
-const uri = process.env.DB_URI;
+const uri = `mongodb+srv://${process.env.DB_URI}`;
 let client;
 
 module.exports = async () => {
     try {
-      client = await MongoClient.connect(`mongodb+srv://${process.env.DB_URI}`, { useNewUrlParser: true });
+      client = await MongoClient.connect(uri, { useNewUrlParser: true });
     } catch (e) {
       console.log("Could not connect to mongodb");
     }
