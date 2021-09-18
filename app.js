@@ -4,7 +4,6 @@ const cors = require('cors');
 const express = require('express');
 const connect = require('./models/db');
 require ('dotenv').config();
-const io = require('socket.io');
 const http = require('http');
 
 const port = 3333;
@@ -22,16 +21,6 @@ connect();
 server.listen(port, hostname, () => {
     console.log(`Server started on ${hostname}:${port}`)
 });  
-
-// connect to socketio.
-io(server).on('connection', (socket) => {
-    console.log('Socket.IO Connected. ID: ', socket.id);
-    console.log(app.get('mongodb'));
-    let db = app.get('mongodb');
-    if(db) {
-       // db calls.
-    };
-});
 
 const rootController = require('./routes/index');
 const JobsController = require('./routes/jobs');
