@@ -2,7 +2,6 @@
 
 const cors = require('cors');
 const express = require('express');
-const connect = require('./models/db');
 require ('dotenv').config();
 const http = require('http');
 
@@ -16,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+const connect = require('./models/db');
 connect();
 
 server.listen(port, hostname, () => {

@@ -4,12 +4,12 @@ const express = require('express');
 const router = express.Router();
 const { get } = require('../models/db');
 
-router.get('/:user_id?', async (req, res) => {
+router.get('/:user_sub?', async (req, res) => {
     const client = get();
     const jobs = client.db('grepJobs').collection('jobs');
-    if (req.params.user_id) {
-        const user = parseInt(req.params.user_id);
-        const favorites = await jobs.find({ user_id: user}).toArray();
+    if (req.params.user_sub) {
+        const user = req.params.user_sub;
+        const favorites = await jobs.find({ user_sub: user}).toArray();
         res.json(favorites).status(200);
     } else {
         const allJobs = await jobs.find({}).toArray();
@@ -36,6 +36,7 @@ router.put('/update'), async (req, res) => {
         if (err) {
             console.error('ERROR', err)
         } else {
+            res.sendStatus(200);
             console.log(`Updated ${response.modifiedCount} documents successfully`)
         }
     });
@@ -48,6 +49,7 @@ router.delete('/delete', async (req, res) => {
         if (err) {
             console.error('ERROR', err)
         } else {
+            res.sendStatus(200);
             console.log('delete successful')
         }
     });
