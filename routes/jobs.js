@@ -30,7 +30,15 @@ router.post('/add', async (req, res) => {
 });
 
 router.put('/update'), async (req, res) => {
-
+    const client = get();
+    const jobs = client.db('grepJobs').collection('jobs');
+    const response = await jobs.updateOne(req.body, err => {
+        if (err) {
+            console.error('ERROR', err)
+        } else {
+            console.log(`Updated ${response.modifiedCount} documents successfully`)
+        }
+    });
 };
 
 router.delete('/delete', async (req, res) => {

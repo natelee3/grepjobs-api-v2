@@ -18,7 +18,7 @@
 
     GET /
 
-<b>Returns text: "Welcome to the GrepJobs API Navigate to routes /jobs/ or /jobs/{job_id} to view saved information"</b>
+<b>Returns text: "Welcome to the GrepJobs API!"</b>
 
 ## JOBS ENDPOINTS
 
