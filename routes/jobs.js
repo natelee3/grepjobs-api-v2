@@ -29,18 +29,22 @@ router.post('/add', async (req, res) => {
     });
 });
 
-router.put('/update'), async (req, res) => {
+router.post('/update', async (req, res) => {
     const client = get();
     const jobs = client.db('grepJobs').collection('jobs');
-    const response = await jobs.updateOne(req.body, err => {
+    console.log(req.body)
+    const { job_id, user_sub, applied } = req.body;
+    const filter = { $and: [{"job_id": job_id}, {"user_sub": user_sub}]};
+    const query = { $set: {"applied": !applied} };
+    const response = await jobs.updateOne(filter, query, err => {
         if (err) {
             console.error('ERROR', err)
         } else {
             res.sendStatus(200);
-            console.log(`Updated ${response.modifiedCount} documents successfully`)
+            console.log(`Updated 1 document successfully`)
         }
     });
-};
+});
 
 router.delete('/delete', async (req, res) => {
     const client = get();
